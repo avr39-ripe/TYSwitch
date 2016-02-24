@@ -83,6 +83,7 @@ void SwitchHttp::setState(uint8_t state)
 {
 	if (_httpClient.isProcessing())
 	{
+			Serial.printf("IS PROCESSING\n");
 			return; // We need to wait while request processing was completed
 	}
 	else
@@ -90,9 +91,30 @@ void SwitchHttp::setState(uint8_t state)
 		String postBody = "{state: \"";
 		postBody += (String)state;
 		postBody += "\"}";
-
+		Serial.printf("postBody: %s\n", postBody.c_str());
+		_httpClient.setRequestContentType("Content-Type: application/json; charset=utf-8");
+		_httpClient.setPostBody(postBody);
 		_httpClient.downloadString(_url, HttpClientCompletedDelegate(&SwitchHttp::_httpGetResponse, this));
 	}
+}
+
+void SwitchHttp::_httpGetResponse(HttpClient& client, bool successful)
+{
+	if (successful)
+	{
+		_connectionStatus = SwitchConnectionStatus::CONNECTED;
+		Serial.printf("POST OK\n");
+	}
+	else
+	{
+		_connectionStatus = SwitchConnectionStatus::DISCONNECTED;
+		Serial.printf("POST BAD!\n");
+	}
+}
+
+void SwitchHttp::_timeout_action()
+{
+	setState(_state); // If do not receive "keep-alive" state after _refresh timeout set switch state to ON
 }
 
 void SwitchHttp::setUrl(String url)

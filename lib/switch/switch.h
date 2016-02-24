@@ -31,7 +31,7 @@ public:
 	virtual ~Switch() {};
 	virtual void setState(uint8_t state);
 private:
-	void _timeout_action();
+	virtual void _timeout_action();
 	uint8_t _polarity = 1; // ON state polarity this value write to port to NO it
 	uint16_t _refresh; // IN SECONDS!!!
 	Timer _refreshTimer;
@@ -54,10 +54,11 @@ class SwitchHttp : public Switch
 {
 public:
 	SwitchHttp(String url, uint8_t polarity = 1, uint16_t refresh = 30);
-	virtual ~SwitchHttp();
+	virtual ~SwitchHttp() {};
 	virtual void setState(uint8_t state);
 	void setUrl(String url);
 private:
+	virtual void _timeout_action();
 	void _httpGetResponse(HttpClient& client, bool successful);
 	HttpClient _httpClient;
 	String _url;
