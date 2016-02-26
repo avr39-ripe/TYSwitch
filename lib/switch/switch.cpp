@@ -81,6 +81,7 @@ SwitchHttp::SwitchHttp(String url, uint8_t polarity, uint16_t refresh)
 
 void SwitchHttp::setState(uint8_t state)
 {
+	Switch::setState(state);
 	if (_httpClient.isProcessing())
 	{
 			Serial.printf("IS PROCESSING\n");
