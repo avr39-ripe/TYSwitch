@@ -47,6 +47,7 @@ void init()
 	wifi_set_sleep_type(NONE_SLEEP_T);
 
 	initialWifiConfig();
+	wifi_station_dhcpc_set_maxtry(128); //SET DHCP MAXTRY
 
 	ActiveConfig = loadConfig();
 
