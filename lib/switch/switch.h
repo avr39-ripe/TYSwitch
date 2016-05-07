@@ -42,7 +42,7 @@ protected:
 class SwitchGPIO : public Switch
 {
 public:
-	SwitchGPIO(uint8_t gpio_pin, uint8_t polarity = 1, uint16_t refresh = 30);
+	SwitchGPIO(uint8_t gpio_pin, uint8_t polarity = 1, uint16_t refresh = 35);
 	virtual ~SwitchGPIO() {};
 	void httpSetState(HttpRequest &request, HttpResponse &response);
 	virtual void setState(uint8_t state);
