@@ -44,7 +44,7 @@ class SwitchGPIO : public Switch
 public:
 	SwitchGPIO(uint8_t gpio_pin, uint8_t polarity = 1, uint16_t refresh = 30);
 	virtual ~SwitchGPIO() {};
-	void httpSetState(HttpRequest &request);
+	void httpSetState(HttpRequest &request, HttpResponse &response);
 	virtual void setState(uint8_t state);
 private:
 	uint8_t _gpio_pin; // GPIO pin number associated with this switch

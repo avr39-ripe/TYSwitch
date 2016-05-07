@@ -50,7 +50,7 @@ void SwitchGPIO::setState(uint8_t state)
 	digitalWrite(_gpio_pin, _state);
 }
 
-void SwitchGPIO::httpSetState(HttpRequest &request)
+void SwitchGPIO::httpSetState(HttpRequest &request, HttpResponse &response)
 {
 	if (request.getBody() == NULL)
 		{
